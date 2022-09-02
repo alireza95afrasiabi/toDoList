@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <style>
+        main{
+            width: 100%;
+            height: 100vh;
+            /* background-image: linear-gradient(45deg, rgb(215, 244, 255), rgb(0, 0, 141)); */
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            background-image: url(164553.png);
+            background-size: cover;
+            color: black;
+        }
+        .time{
+            text-transform: capitalize;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .wlc{
+            font-size: 40px;
+            text-transform: capitalize;
+        }
+        .list{
+            /* border: 2px solid red; */
+        }
+        .tabel{
+            /* border: 2px solid red; */
+        }
+        .tabel>h5{
+            border: 1px solid white;
+            height: 30px;
+        }
+        .tabel>span{
+            cursor: pointer;
+            border: 1px solid white;
+            height: 30px;
+        }
+    </style>
+</head>
+<body onload="_pass()">
+    <main class="container-fluid container-xxl" onload="alert()">
+        <div onclick="_time()" class="row col-12 justify-content-start ps-5 pt-3 time">
+            check your local time
+        </div>
+        <div class="row col-12 justify-content-center">
+            <p class="d-flex justify-content-center wlc">welcome to company workers list</p>
+        </div>
+        <div class="row justify-content-center list">
+            <input autofocus placeholder="Full Name" id="_inp1" class="col-3" type="text">
+            <input autofocus placeholder="Work Experiences" id="_inp2" class="col-3" type="text">
+            <input autofocus placeholder="Salary in Rials" id="_inp3" class="col-3" type="text">
+            <button id="aDd" onclick="_add()" class="col-1">Add</button>
+            <button id="replAce" onclick="_replace()" class="col-1 d-none">replace</button>
+        </div>
+        <ul id="_ul" class="row justify-content-center mt-5 p-0">
+            <!-- <li class="row justify-content-center tabel" id="iD1">
+                <h5 class="d-flex justify-content-start align-items-center col-3">Name</h5>
+                <h5 class="d-flex justify-content-start align-items-center col-3">Experiences</h5>
+                <h5 class="d-flex justify-content-start align-items-center col-3">00 Rials</h5>
+                <span class="d-flex justify-content-center align-items-center col-1" onclick="_edit(this)">edit</span>
+                <span class="d-flex justify-content-center align-items-center col-1" onclick="_remove(this)">remove</span>
+            </li> -->
+        </ul>
+    </main>
+</body>
+<script>
+
+    function _pass(){
+        let pass = prompt('نوشته داخل پرانتز را وارد کنید(aliafra)')
+        if(pass == 'aliafra'){
+            alert('THIS IS OUR COMPANY WORKERS LIST')
+        }else{
+            _pass()
+        }
+    }
+
+    // ta inja pass avval site 
+
+    let _iD = 1 ;
+    let _date = new Date()  
+    function _time(){
+        alert(_date.toLocaleTimeString())
+    }
+// ta inja time bood 
+
+    function _add(){
+        let inp1 = document.getElementById('_inp1').value
+        let inp2 = document.getElementById('_inp2').value
+        let inp3 = document.getElementById('_inp3').value
+        if(inp1 == '' || inp1 == ' ' || inp1 == null || inp2 == '' || inp2 == ' ' || inp2 == null || inp3 == '' || inp3 == ' ' || inp3 == null){
+            alert('Please fill the Boxes')
+        }else{
+            let _addedli = document.createElement('li')
+            _iD++
+            _addedli.setAttribute('id' ,'iD'+_iD)
+            _addedli.classList.add('row' , 'justify-content-center' , 'tabel')
+            _addedli.innerHTML = `
+                <h5 class="d-flex justify-content-start align-items-center col-3">${inp1}</h5>
+                <h5 class="d-flex justify-content-start align-items-center col-3">${inp2}</h5>
+                <h5 class="d-flex justify-content-start align-items-center col-3">${inp3}</h5>
+                <span class="d-flex justify-content-center align-items-center col-1" onclick="_edit(this)">edit</span>
+                <span class="d-flex justify-content-center align-items-center col-1" onclick="_remove(this)">remove</span>
+            `
+
+            document.getElementById('_ul').appendChild(_addedli)
+            document.getElementById('_inp1').value = null
+            document.getElementById('_inp2').value = null
+            document.getElementById('_inp3').value = null
+        }
+    }
+
+    // ta inja ezafe kardan li 
+
+    function _remove(self){
+        if(confirm('confirm to remove')){
+            self.parentElement.remove()
+        }
+    }
+
+    // ta inja dokme remove 
+
+    let trn 
+
+    function _edit(self){
+        trn = self.parentElement.getAttribute('id')
+        document.getElementById('_inp1').value = (self.previousElementSibling.previousElementSibling.previousElementSibling.innerText)
+        document.getElementById('_inp2').value = (self.previousElementSibling.previousElementSibling.innerText)
+        document.getElementById('_inp3').value = (self.previousElementSibling.innerText)
+
+        document.getElementById('aDd').classList.add('d-none')
+        document.getElementById('replAce').classList.remove('d-none')
+        
+    }
+
+    function _replace(){
+        document.querySelector('#'+trn+'>h5:nth-of-type(1)').innerText = (document.getElementById('_inp1').value)
+        document.querySelector('#'+trn+'>h5:nth-of-type(2)').innerText = (document.getElementById('_inp2').value)
+        document.querySelector('#'+trn+'>h5:nth-of-type(3)').innerText = (document.getElementById('_inp3').value)
+
+        document.getElementById('aDd').classList.remove('d-none')
+        document.getElementById('replAce').classList.add('d-none')
+         
+        document.getElementById('_inp1').value = null
+        document.getElementById('_inp2').value = null
+        document.getElementById('_inp3').value = null
+    }
+
+    // ta inja dokme edit bood 
+</script>
+</html>
