@@ -1,0 +1,30 @@
+        main {
+            width: 100%;
+            height: 100vh;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            background-image: url(164553.png);
+            background-size: cover;
+            color: black;
+        }
+
+        .time {
+            text-transform: capitalize;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .wlc {
+            font-size: 40px;
+            text-transform: capitalize;
+        }
+
+        .tabel>h5 {
+            border: 1px solid white;
+            height: 30px;
+        }
+
+        .tabel>span {
+            cursor: pointer;
+            border: 1px solid white;
+            height: 30px;
+        }
